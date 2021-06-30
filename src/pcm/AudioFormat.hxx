@@ -1,5 +1,5 @@
 /*
- * Copyright 2003-2020 The Music Player Daemon Project
+ * Copyright 2003-2021 The Music Player Daemon Project
  * http://www.musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,8 +20,8 @@
 #ifndef MPD_AUDIO_FORMAT_HXX
 #define MPD_AUDIO_FORMAT_HXX
 
-#include "pcm/SampleFormat.hxx"
-#include "pcm/ChannelDefs.hxx"
+#include "pcm/SampleFormat.hxx" // IWYU pragma: export
+#include "pcm/ChannelDefs.hxx" // IWYU pragma: export
 #include "util/Compiler.h"
 
 #include <cstddef>

@@ -47,9 +47,7 @@
 
 CurlRequest::CurlRequest(CurlGlobal &_global,
 			 CurlResponseHandler &_handler)
-	:global(_global), handler(_handler),
-	 postpone_error_event(global.GetEventLoop(),
-			      BIND_THIS_METHOD(OnPostponeError))
+	:global(_global), handler(_handler)
 {
 	error_buffer[0] = 0;
 
@@ -57,7 +55,7 @@ CurlRequest::CurlRequest(CurlGlobal &_global,
 	easy.SetUserAgent("Music Player Daemon " VERSION);
 	easy.SetHeaderFunction(_HeaderFunction, this);
 	easy.SetWriteFunction(WriteFunction, this);
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(_WIN32)
 	easy.SetOption(CURLOPT_NETRC, 1L);
 #endif
 	easy.SetErrorBuffer(error_buffer);
@@ -241,14 +239,7 @@ CurlRequest::DataReceived(const void *ptr, size_t received_size) noexcept
 		FinishHeaders();
 		handler.OnData({ptr, received_size});
 		return received_size;
-	} catch (Pause) {
-		return CURL_WRITEFUNC_PAUSE;
-	} catch (...) {
-		state = State::CLOSED;
-		/* move the CurlResponseHandler::OnError() call into a
-		   "safe" stack frame */
-		postponed_error = std::current_exception();
-		postpone_error_event.Schedule();
+	} catch (CurlResponseHandler::Pause) {
 		return CURL_WRITEFUNC_PAUSE;
 	}
 
@@ -265,12 +256,4 @@ CurlRequest::WriteFunction(char *ptr, size_t size, size_t nmemb,
 		return 0;
 
 	return c.DataReceived(ptr, size);
-}
-
-void
-CurlRequest::OnPostponeError() noexcept
-{
-	assert(postponed_error);
-
-	handler.OnError(postponed_error);
 }
