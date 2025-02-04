@@ -48,7 +48,7 @@ project(
     'libnpupnp:warning_level=0',
     'liburing:warning_level=0',
     'sqlite3:warning_level=0',
-    'oggiopus:werror=false',
+    'ogg:werror=false',
     'ogg:warning_level=0',
     'openssl:werror=false',
     'openssl:warning_level=0',
@@ -437,6 +437,12 @@ if is_windows
   ]
 endif
 
+if is_darwin
+  sources += [
+    'src/apple/AppleMain.cxx',
+  ]
+endif
+
 if not is_android
   sources += [
     'src/CommandLine.cxx',
@@ -476,6 +482,8 @@ subdir('src/thread')
 subdir('src/net')
 subdir('src/event')
 subdir('src/win32')
+
+subdir('src/apple')
 
 subdir('src/fs/glue')
 
@@ -597,7 +605,7 @@ if is_android
   ]
 
   android_abi = get_option('android_abi')
-  install_dir = meson.current_source_dir() / 'android/app/src/main/jnilibs' / android_abi
+  install_dir = meson.current_source_dir() / 'android/app/src/main/jniLibs' / android_abi
 else
   target_type = 'executable'
   target_name = 'mpd'

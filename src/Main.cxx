@@ -421,6 +421,9 @@ MainConfigured(const CommandLineOptions &options,
 	};
 #endif
 
+	instance.io_thread.Start();
+	instance.rtio_thread.Start();
+
 #ifdef ENABLE_NEIGHBOR_PLUGINS
 	if (instance.neighbors != nullptr)
 		instance.neighbors->Open();
@@ -674,6 +677,8 @@ try {
 
 #ifdef _WIN32
 	return win32_main(argc, argv);
+#elif __APPLE__
+	return apple_main(argc, argv);
 #else
 	return mpd_main(argc, argv);
 #endif

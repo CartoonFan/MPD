@@ -19,9 +19,9 @@
 #include "lib/fmt/ToBuffer.hxx"
 #include "event/Call.hxx"
 #include "event/Loop.hxx"
-#include "util/ASCII.hxx"
 #include "util/CNumberParser.hxx"
 #include "util/Domain.hxx"
+#include "util/StringCompare.hxx"
 #include "Log.hxx"
 #include "PluginUnavailable.hxx"
 #include "config.h"
@@ -41,6 +41,8 @@
 #include <string.h>
 
 #include <curl/curl.h>
+
+using std::string_view_literals::operator""sv;
 
 /**
  * Do not buffer more than this number of bytes.  It should be a
@@ -412,7 +414,7 @@ input_curl_init(EventLoop &event_loop, const ConfigBlock &block)
 				  std::chrono::seconds{1},
 				  default_connection_timeout));
 
-	verbose = block.GetBlockValue("verbose",verbose);
+	verbose = block.GetBlockValue("verbose", verbose);
 
 	low_speed_limit = block.GetBlockValue("low_speed_limit", default_low_speed_limit);
 
@@ -432,6 +434,31 @@ input_curl_finish() noexcept
 
 	curl_slist_free_all(http_200_aliases);
 	http_200_aliases = nullptr;
+}
+
+/**
+ * CURLOPT_DEBUGFUNCTION
+ */
+static int
+CurlDebugToLog(CURL *handle, curl_infotype type, char *data, size_t size, void *user)
+{
+	(void)handle;
+	(void)user;
+
+	switch(type) {
+		case CURLINFO_TEXT:
+			Log(LogLevel::DEBUG, curl_domain, std::string_view{data, size});
+			break;
+		case CURLINFO_HEADER_OUT:
+			FmtDebug(curl_domain, "Header out: {}", std::string_view{data, size});
+			break;
+		case CURLINFO_HEADER_IN:
+			FmtDebug(curl_domain, "Header in: {}", std::string_view{data, size});
+			break;
+		default:
+			break;
+	}
+	return 0;
 }
 
 template<typename I>
@@ -510,6 +537,8 @@ CreateEasy(const char *url, struct curl_slist *headers)
 	easy.SetOption(CURLOPT_TCP_KEEPINTVL, tcp_keepintvl);
 
 	easy.SetRequestHeaders(headers);
+
+	easy.SetOption(CURLOPT_DEBUGFUNCTION, CurlDebugToLog);
 
 	return easy;
 }
@@ -596,10 +625,10 @@ OpenCurlInputStream(std::string_view uri, const Curl::Headers &headers,
 }
 
 static InputStreamPtr
-input_curl_open(const char *url, Mutex &mutex)
+input_curl_open(std::string_view url, Mutex &mutex)
 {
-	if (!StringStartsWithCaseASCII(url, "http://") &&
-	    !StringStartsWithCaseASCII(url, "https://"))
+	if (!StringStartsWithIgnoreCase(url, "http://"sv) &&
+	    !StringStartsWithIgnoreCase(url, "https://"sv))
 		return nullptr;
 
 	return CurlInputStream::Open(url, {}, mutex);

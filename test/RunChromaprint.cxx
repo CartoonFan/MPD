@@ -84,13 +84,15 @@ public:
 		 input_plugins_init(config, io_thread.GetEventLoop()),
 		 decoder_plugins_init(config)
 	{
+		io_thread.Start();
+
 		pcm_convert_global_init(config);
 	}
 };
 
 class MyChromaprintDecoderClient final : public ChromaprintDecoderClient {
 public:
-	InputStreamPtr OpenUri(const char *) override {
+	InputStreamPtr OpenUri(std::string_view) override {
 		throw std::runtime_error("Not implemented");
 	}
 };
