@@ -192,7 +192,7 @@ mikmod_decoder_scan_file(Path path_fs, TagHandler &handler) noexcept
 	return true;
 }
 
-static const char *const mikmod_decoder_suffixes[] = {
+static constexpr const char *mikmod_decoder_suffixes[] = {
 	"amf",
 	"dsm",
 	"far",

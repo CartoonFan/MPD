@@ -341,12 +341,12 @@ dsf_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-static const char *const dsf_suffixes[] = {
+static constexpr const char *dsf_suffixes[] = {
 	"dsf",
 	nullptr
 };
 
-static const char *const dsf_mime_types[] = {
+static constexpr const char *dsf_mime_types[] = {
 	"application/x-dsf",
 	"audio/x-dsf",
 	"audio/x-dsd",

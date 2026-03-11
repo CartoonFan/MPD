@@ -556,7 +556,7 @@ mpd_mpg123_scan_file(Path path_fs, TagHandler &handler) noexcept
 	return Scan(*handle, handler);
 }
 
-static const char *const mpg123_suffixes[] = {
+static constexpr const char *mpg123_suffixes[] = {
 	"mp3",
 	nullptr
 };

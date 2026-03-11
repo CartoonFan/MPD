@@ -207,7 +207,7 @@ fluidsynth_scan_file(Path path_fs,
 	return fluid_is_midifile(np);
 }
 
-static const char *const fluidsynth_suffixes[] = {
+static constexpr const char *fluidsynth_suffixes[] = {
 	"mid",
 	nullptr
 };

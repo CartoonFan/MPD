@@ -132,7 +132,7 @@ modplug_scan_stream(InputStream &is, TagHandler &handler) noexcept
 	return true;
 }
 
-static const char *const mod_suffixes[] = {
+static constexpr const char *mod_suffixes[] = {
 	"669", "amf", "ams", "dbm", "dfm", "dsm", "far", "it",
 	"med", "mdl", "mod", "mtm", "mt2", "okt", "s3m", "stm",
 	"ult", "umx", "xm",

@@ -753,7 +753,7 @@ ffmpeg_suffixes() noexcept
 	return suffixes;
 }
 
-static const char *const ffmpeg_mime_types[] = {
+static constexpr const char *ffmpeg_mime_types[] = {
 	"application/flv",
 	"application/m4a",
 	"application/mp4",

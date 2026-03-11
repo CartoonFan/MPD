@@ -989,8 +989,8 @@ mad_decoder_scan_stream(InputStream &is, TagHandler &handler)
 	return data.RunScan(handler);
 }
 
-static const char *const mad_suffixes[] = { "mp3", "mp2", nullptr };
-static const char *const mad_mime_types[] = { "audio/mpeg", nullptr };
+static constexpr const char *mad_suffixes[] = { "mp3", "mp2", nullptr };
+static constexpr const char *mad_mime_types[] = { "audio/mpeg", nullptr };
 
 constexpr DecoderPlugin mad_decoder_plugin =
 	DecoderPlugin("mad", mad_decode, mad_decoder_scan_stream)

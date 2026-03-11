@@ -268,7 +268,7 @@ mpcdec_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-static const char *const mpcdec_suffixes[] = { "mpc", nullptr };
+static constexpr const char *mpcdec_suffixes[] = { "mpc", nullptr };
 
 constexpr DecoderPlugin mpcdec_decoder_plugin =
 	DecoderPlugin("mpcdec", mpcdec_decode, mpcdec_scan_stream)

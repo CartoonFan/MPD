@@ -518,14 +518,14 @@ mpd_opus_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-const char *const opus_suffixes[] = {
+static constexpr const char *opus_suffixes[] = {
 	"opus",
 	"ogg",
 	"oga",
 	nullptr
 };
 
-const char *const opus_mime_types[] = {
+static constexpr const char *opus_mime_types[] = {
 	/* the official MIME type (RFC 5334) */
 	"audio/ogg",
 

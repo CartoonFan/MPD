@@ -406,11 +406,11 @@ vorbis_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-static const char *const vorbis_suffixes[] = {
+static constexpr const char *vorbis_suffixes[] = {
 	"ogg", "oga", nullptr
 };
 
-static const char *const vorbis_mime_types[] = {
+static constexpr const char *vorbis_mime_types[] = {
 	"application/ogg",
 	"application/x-ogg",
 	"audio/ogg",

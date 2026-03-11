@@ -96,7 +96,7 @@ adplug_scan_file(Path path_fs, TagHandler &handler) noexcept
 	return true;
 }
 
-static const char *const adplug_suffixes[] = {
+static constexpr const char *adplug_suffixes[] = {
 	"amd",
 	"d00",
 	"hsc",

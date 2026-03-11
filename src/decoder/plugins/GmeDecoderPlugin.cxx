@@ -323,7 +323,7 @@ gme_container_scan(Path path_fs)
 	return list;
 }
 
-static const char *const gme_suffixes[] = {
+static constexpr const char *gme_suffixes[] = {
 	"ay", "gbs", "gym", "hes", "kss", "nsf",
 	"nsfe", "rsn", "sap", "spc", "vgm", "vgz",
 	nullptr

@@ -322,7 +322,7 @@ psgplay_container_scan(Path path_fs)
 	return list;
 }
 
-static const char *const psgplay_suffixes[] = {
+static constexpr const char *psgplay_suffixes[] = {
 	"sndh",
 	nullptr
 };

@@ -248,11 +248,11 @@ audiofile_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-static const char *const audiofile_suffixes[] = {
+static constexpr const char *audiofile_suffixes[] = {
 	"wav", "au", "aiff", "aif", nullptr
 };
 
-static const char *const audiofile_mime_types[] = {
+static constexpr const char *audiofile_mime_types[] = {
 	"audio/wav",
 	"audio/aiff",
 	"audio/x-wav",

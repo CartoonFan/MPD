@@ -283,7 +283,7 @@ sndfile_scan_stream(InputStream &is, TagHandler &handler)
 	return true;
 }
 
-static const char *const sndfile_suffixes[] = {
+static constexpr const char *sndfile_suffixes[] = {
 	"wav", "aiff", "aif", /* Microsoft / SGI / Apple */
 	"au", "snd", /* Sun / DEC / NeXT */
 	"paf", /* Paris Audio File */
@@ -304,7 +304,7 @@ static const char *const sndfile_suffixes[] = {
 	nullptr
 };
 
-static const char *const sndfile_mime_types[] = {
+static constexpr const char *sndfile_mime_types[] = {
 	"audio/wav",
 	"audio/aiff",
 	"audio/x-wav",

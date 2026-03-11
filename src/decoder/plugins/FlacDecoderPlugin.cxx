@@ -376,8 +376,8 @@ oggflac_decode(DecoderClient &client, InputStream &input_stream)
 	flac_decode_internal(client, input_stream, true);
 }
 
-static const char *const oggflac_suffixes[] = { "ogg", "oga", nullptr };
-static const char *const oggflac_mime_types[] = {
+static constexpr const char *oggflac_suffixes[] = { "ogg", "oga", nullptr };
+static constexpr const char *oggflac_mime_types[] = {
 	"application/ogg",
 	"application/x-ogg",
 	"audio/ogg",
@@ -393,8 +393,8 @@ constexpr DecoderPlugin oggflac_decoder_plugin =
 	.WithSuffixes(oggflac_suffixes)
 	.WithMimeTypes(oggflac_mime_types);
 
-static const char *const flac_suffixes[] = { "flac", nullptr };
-static const char *const flac_mime_types[] = {
+static constexpr const char *flac_suffixes[] = { "flac", nullptr };
+static constexpr const char *flac_mime_types[] = {
 	"application/flac",
 	"application/x-flac",
 	"audio/flac",

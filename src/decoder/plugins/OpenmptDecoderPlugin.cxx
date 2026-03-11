@@ -142,7 +142,7 @@ try {
 	return false;
 }
 
-static const char *const mod_suffixes[] = {
+static constexpr const char *mod_suffixes[] = {
 	"mptm", "mod", "s3m", "xm", "it", "669", "amf", "ams",
 	"c67", "dbm", "digi", "dmf", "dsm", "dtm", "far", "imf",
 	"ice", "j2b", "m15", "mdl", "med", "mms", "mt2", "mtm",

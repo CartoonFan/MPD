@@ -213,7 +213,7 @@ pcm_stream_decode(DecoderClient &client, InputStream &is)
 	} while (cmd == DecoderCommand::NONE);
 }
 
-static const char *const pcm_mime_types[] = {
+static constexpr const char *pcm_mime_types[] = {
 	/* RFC 2586 */
 	"audio/L16",
 

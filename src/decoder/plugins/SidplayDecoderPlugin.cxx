@@ -494,7 +494,7 @@ sidplay_container_scan(Path path_fs)
 	return list;
 }
 
-static const char *const sidplay_suffixes[] = {
+static constexpr const char *sidplay_suffixes[] = {
 	"sid",
 	"psid",
 	"mus",

@@ -150,7 +150,7 @@ wildmidi_scan_file(Path path_fs, TagHandler &handler) noexcept
 	return true;
 }
 
-static const char *const wildmidi_suffixes[] = {
+static constexpr const char *wildmidi_suffixes[] = {
 	"mid",
 	nullptr
 };
