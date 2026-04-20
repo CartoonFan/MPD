@@ -35,7 +35,7 @@ uri_supported_scheme(const char *uri) noexcept
 }
 
 const StoragePlugin *
-GetStoragePluginByUri(const char *) noexcept
+GetStoragePluginByUri(std::string_view) noexcept
 {
 	// dummy symbol
 	return nullptr;
