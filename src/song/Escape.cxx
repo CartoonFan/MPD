@@ -10,7 +10,7 @@ MustEscape(char ch) noexcept
 }
 
 std::string
-EscapeFilterString(const std::string &src) noexcept
+EscapeFilterString(const std::string_view src) noexcept
 {
 	std::string result;
 	result.reserve(src.length() + 16);
