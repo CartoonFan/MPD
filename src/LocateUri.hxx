@@ -47,15 +47,15 @@ struct LocatedUri {
 		PATH,
 	} type;
 
-	const char *canonical_uri;
+	std::string_view canonical_uri;
 
 	/**
 	 * Contains the local file path if type==FILE.
 	 */
 	AllocatedPath path;
 
-	LocatedUri(Type _type, const char *_uri,
-		   AllocatedPath &&_path=nullptr)
+	LocatedUri(Type _type, std::string_view _uri,
+		   AllocatedPath &&_path=nullptr) noexcept
 		:type(_type), canonical_uri(_uri), path(std::move(_path)) {}
 };
 

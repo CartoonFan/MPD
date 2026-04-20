@@ -140,7 +140,7 @@ public:
 };
 
 static CommandResult
-handle_lsinfo_absolute(Response &r, const char *uri)
+handle_lsinfo_absolute(Response &r, const std::string_view uri)
 {
 	PrintTagHandler h(r);
 	if (!tag_stream_scan(uri, h)) {
@@ -152,7 +152,7 @@ handle_lsinfo_absolute(Response &r, const char *uri)
 }
 
 static CommandResult
-handle_lsinfo_relative(Client &client, Response &r, const char *uri)
+handle_lsinfo_relative(Client &client, Response &r, const std::string_view uri)
 {
 #ifdef ENABLE_DATABASE
 	if (CommandResult result = handle_lsinfo2(client, uri, r);
@@ -180,7 +180,7 @@ handle_lsinfo_relative(Client &client, Response &r, const char *uri)
 
 static CommandResult
 handle_lsinfo_path(Client &, Response &r,
-		   const char *path_utf8, Path path_fs)
+		   const std::string_view path_utf8, Path path_fs)
 {
 	DetachedSong song(path_utf8);
 	if (!song.LoadFile(path_fs)) {
