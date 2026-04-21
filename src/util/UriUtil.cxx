@@ -50,10 +50,10 @@ uri_safe_local(const char *uri) noexcept
 static const char *
 SkipUriScheme(const char *uri) noexcept
 {
-	static constexpr auto schemes = std::array {
-		"http://", "https://",
-		"ftp://",
-		"smb://",
+	static constexpr std::array schemes{
+		"http://"sv, "https://"sv,
+		"ftp://"sv,
+		"smb://"sv,
 	};
 
 	for (auto scheme : schemes) {
