@@ -6,16 +6,18 @@
 
 #include <gtest/gtest.h>
 
+using std::string_view_literals::operator""sv;
+
 TEST(UriUtil, RemoveAuth)
 {
-	EXPECT_EQ(std::string(),
-		  uri_remove_auth("http://www.example.com/"));
-	EXPECT_EQ(std::string("http://www.example.com/"),
-		  uri_remove_auth("http://foo:bar@www.example.com/"));
-	EXPECT_EQ(std::string("http://www.example.com/"),
-		  uri_remove_auth("http://foo@www.example.com/"));
-	EXPECT_EQ(std::string(),
-		  uri_remove_auth("http://www.example.com/f:oo@bar"));
-	EXPECT_EQ(std::string("ftp://ftp.example.com/"),
-		  uri_remove_auth("ftp://foo:bar@ftp.example.com/"));
+	EXPECT_EQ(uri_remove_auth("http://www.example.com/"),
+		  ""sv);
+	EXPECT_EQ(uri_remove_auth("http://foo:bar@www.example.com/"),
+		  "http://www.example.com/"sv);
+	EXPECT_EQ(uri_remove_auth("http://foo@www.example.com/"),
+		  "http://www.example.com/"sv);
+	EXPECT_EQ(uri_remove_auth("http://www.example.com/f:oo@bar"),
+		  ""sv);
+	EXPECT_EQ(uri_remove_auth("ftp://foo:bar@ftp.example.com/"),
+		  "ftp://ftp.example.com/"sv);
 }
