@@ -11,6 +11,8 @@
 
 #include <string_view>
 
+using std::string_view_literals::operator""sv;
+
 static const char *
 verify_uri_segment(const char *p) noexcept
 {
@@ -109,11 +111,10 @@ uri_squash_dot_segments(const char *uri) noexcept
 			continue;
 		}
 
-		result.insert(0, *it);
+		if (!result.empty())
+			result.insert(0, "/"sv);
 
-		if (it != path.begin()) {
-			result.insert(it->length(), "/");
-		}
+		result.insert(0, *it);
 
 		it++;
 	}
