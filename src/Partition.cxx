@@ -127,7 +127,7 @@ Partition::TagModified() noexcept
 }
 
 void
-Partition::TagModified(const char *uri, const Tag &tag) noexcept
+Partition::TagModified(const std::string_view uri, const Tag &tag) noexcept
 {
 	playlist.TagModified(uri, tag);
 }
