@@ -98,7 +98,7 @@ uri_squash_dot_segments(const char *uri) noexcept
 
 	std::string result;
 
-	int segskips = 0;
+	unsigned segskips = 0;
 	auto it = path.begin();
 	while (it != path.end()) {
 		if (*it == "..") {
