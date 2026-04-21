@@ -53,3 +53,16 @@ TEST(UriUtil, RemoveAuth)
 	EXPECT_EQ(uri_remove_auth("ftp://foo:bar@ftp.example.com/"),
 		  "ftp://ftp.example.com/"sv);
 }
+
+TEST(UriUtil, SquashDotSegments)
+{
+	EXPECT_EQ(uri_squash_dot_segments(""), ""sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo"), "foo"sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo/bar"), "foo/bar"sv);
+	EXPECT_EQ(uri_squash_dot_segments("./foo/bar"), "foo/bar"sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo/./bar"), "foo/bar"sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo/bar/."), "foo/bar"sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo/bar/.."), "foo"sv);
+	EXPECT_EQ(uri_squash_dot_segments("foo/../bar"), "bar"sv);
+	EXPECT_EQ(uri_squash_dot_segments("../foo/bar"), "foo/bar"sv);
+}
