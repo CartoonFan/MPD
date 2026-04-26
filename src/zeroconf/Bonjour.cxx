@@ -2,12 +2,11 @@
 // Copyright The Music Player Daemon Project
 
 #include "Bonjour.hxx"
+#include "lib/fmt/RuntimeError.hxx"
 #include "util/Domain.hxx"
 #include "Log.hxx"
 
 #include <dns_sd.h>
-
-#include <stdexcept>
 
 #include <arpa/inet.h>
 
@@ -30,7 +29,8 @@ RegisterBonjour(const char *name, const char *type, unsigned port,
 						       callback, ctx);
 
 	if (error != kDNSServiceErr_NoError)
-		throw std::runtime_error("DNSServiceRegister() failed");
+		throw FmtRuntimeError("DNSServiceRegister() failed: {}",
+				      static_cast<int>(error));
 
 	return ref;
 }
@@ -54,7 +54,7 @@ BonjourHelper::Callback([[maybe_unused]] DNSServiceRef sdRef,
 			[[maybe_unused]] const char *domain,
 			[[maybe_unused]] void *context) noexcept
 {
-	auto &helper = *(BonjourHelper *)context;
+	auto &helper = *static_cast<BonjourHelper *>(context);
 
 	if (errorCode != kDNSServiceErr_NoError) {
 		LogError(bonjour_domain,
