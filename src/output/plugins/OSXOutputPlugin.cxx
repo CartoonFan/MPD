@@ -141,7 +141,6 @@ OSXOutput::OSXOutput(const ConfigBlock &block)
 	}
 	else {
 		component_subtype = kAudioUnitSubType_HALOutput;
-		/* XXX am I supposed to strdup() this? */
 		device_name = device;
 	}
 }
@@ -683,7 +682,7 @@ OSXOutput::Open(AudioFormat &audio_format)
 	bool dop = dop_setting;
 #endif
 
-	memset(&asbd, 0, sizeof(asbd));
+	asbd = {};
 	asbd.mFormatID = kAudioFormatLinearPCM;
 	if (audio_format.format == SampleFormat::FLOAT) {
 		asbd.mFormatFlags = kLinearPCMFormatFlagIsFloat;
